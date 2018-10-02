@@ -1,0 +1,36 @@
+	City (to-from)									
+	Brest Brest	 Brest Le Havre	 Brest Paris	 Brest Bordeaux	 Brest Marseille	 Brest Lyon	 Brest Genève	 Brest Monaco	 Brest Strasbourg	 
+	Le Havre Brest	 Le Havre Le Havre	 Le Havre Paris	 Le Havre Bordeaux	 Le Havre Marseille	 Le Havre Lyon	 Le Havre Genève	 Le Havre Monaco	 Le Havre Strasbourg	 
+	Paris Brest	 Paris Le Havre	 Paris Paris	 Paris Bordeaux	 Paris Marseille	 Paris Lyon	 Paris Genève	 Paris Monaco	 Paris Strasbourg	 
+	Bordeaux Brest	 Bordeaux Le Havre	 Bordeaux Paris	 Bordeaux Bordeaux	 Bordeaux Marseille	 Bordeaux Lyon	 Bordeaux Genève	 Bordeaux Monaco	 Bordeaux Strasbourg	 
+	Marseille Brest	 Marseille Le Havre	 Marseille Paris	 Marseille Bordeaux	 Marseille Marseille	 Marseille Lyon	 Marseille Genève	 Marseille Monaco	 Marseille Strasbourg	 
+	Lyon Brest	 Lyon Le Havre	 Lyon Paris	 Lyon Bordeaux	 Lyon Marseille	 Lyon Lyon	 Lyon Genève	 Lyon Monaco	 Lyon Strasbourg	 
+	Genève Brest	 Genève Le Havre	 Genève Paris	 Genève Bordeaux	 Genève Marseille	 Genève Lyon	 Genève Genève	 Genève Monaco	 Genève Strasbourg	 
+	Monaco Brest	 Monaco Le Havre	 Monaco Paris	 Monaco Bordeaux	 Monaco Marseille	 Monaco Lyon	 Monaco Genève	 Monaco Monaco	 Monaco Strasbourg	 
+	Strasbourg Brest	 Strasbourg Le Havre	 Strasbourg Paris	 Strasbourg Bordeaux	 Strasbourg Marseille	 Strasbourg Lyon	 Strasbourg Genève	 Strasbourg Monaco	 Strasbourg Strasbourg	 
+										
+Probability										
+	To City									
+From City	Brest	Le Havre	Paris	Bordeaux	Marseille	Lyon	Geneve	Monaco	Strasbourg	
+Brest	0	0.030534626	0.069892081	0.114228315	0.0108568	0.14044432	0.110984077	0.140891487	0.122403046	 
+Le Havre	0.172902077	0	0.11583031	0.104621522	0.048310695	0.110881118	0.098294565	0.113200367	0.026702681	 
+Paris	0.084166215	0.07395718	0	0.110787769	0.074668607	0.024158216	0.045812099	0.103946498	0.101132349	 
+Bordeaux	0.071462746	0.016590409	0.090045338	0	0.103464612	0.113821902	0.034444464	0.090245424	0.095801444	 
+Marseille	0.009377771	0.13056981	0.122461459	0.112735527	0	0.034462909	0.078023605	0.126253793	0.153286772	 
+Lyon	0.12264523	0.014458682	0.021836812	0.030400416	0.128752157	0	0.068145433	0.139020404	0.150024617	 
+Geneve	0.150845159	0.137992834	0.053206059	0.069839848	0.044966707	0.021078201	0	0.093579795	0.144647622	 
+Monaco	0.119483752	0.103373684	0.14271687	0.180909892	0.013526235	0.135819027	0.047465225	0	0.002768003	 
+Strasbourg	0.095998109	0.068463502	0.094588239	0.039711728	0.120884908	0.134489937	0.053133194	0.062941254	0	 
+										
+Reward										
+	To City									
+From City	Brest	Le Havre	Paris	Bordeaux	Marseille	Lyon	Geneve	Monaco	Strasbourg	
+Brest	0	56409	69800	29900	16372	37962	27782	1000	36527	 
+Le Havre	56409	0	96787	56887	43359	64949	54769	27987	63514	 
+Paris	69800	96787	0	70278	56750	78340	68160	41378	76906	 
+Bordeaux	29900	56887	70278	0	66042	70005	59825	50670	37005	 
+Marseille	16372	43359	56750	66042	0	88589	78409	94806	51831	 
+Lyon	37962	64949	78340	70005	88589	0	99999	73216	73421	 
+Geneve	27782	54769	68160	59825	78409	99999	0	74583	83601	 
+Monaco	1000	27987	41378	50670	94806	73216	74583	0	48005	 
+Strasbourg	36527	63514	76906	37005	51831	73421	83601	48005	0	 

@@ -15,7 +15,7 @@ public class Reactive implements ReactiveBehavior {
 	private double discount;
 	private int numActions;
 	private Agent myAgent;
-	private RLA rla;
+	private StateActionTable stateActionTable;
 
 	@Override
 	public void setup(Topology topology, TaskDistribution td, Agent agent) {
@@ -28,19 +28,19 @@ public class Reactive implements ReactiveBehavior {
 		this.discount = discount;
 		this.numActions = 0;
 		this.myAgent = agent;
-		this.rla = new RLA(td);
+		this.stateActionTable = new StateActionTable(td);
 	}
 
+	/**
+	 * Determine the best Action according to the stateActionTable of this Agent and do that.
+	 * Then log how many actions have been made so far and print it to the user.
+	 */
 	@Override
 	public Action act(Vehicle vehicle, Task availableTask) {
 		Action action;
 
-		if (availableTask == null) {
-			City currentCity = vehicle.getCurrentCity();
-			action = new Move();
-		} else {
-			action = new Pickup(availableTask);
-		}
+		State currentState = new State(vehicle.getCurrentCity(), availableTask);
+		action = stateActionTable.best(currentState);
 		
 		if (numActions >= 1) {
 			System.out.println("The total profit after "+numActions+" actions is "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");

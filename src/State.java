@@ -7,17 +7,27 @@ import logist.task.Task;
  *
  */
 public class State {
-	private City currentCity;
-	private City destinationCity;
-	
-	public State(City currentCity, City destinationCity) {
-		this.currentCity = currentCity;
-		this.destinationCity = destinationCity;
+	private City fromCity;
+	private City toCity;
+
+	public State(City fromCity, City toCity) {
+		this.fromCity = fromCity;
+		this.toCity = toCity;
+	}
+
+	// TODO: Check if this works. There might be an issue with Cities not being
+	// equal
+	@Override
+	public boolean equals(Object that) {
+		return (this.fromCity == ((State) that).fromCity)
+				&& (this.toCity == ((State) that).toCity);
 	}
 	
-	//TODO: Check if this works. There might be an issue with Cities not being equal
-	 @Override
-	 public boolean equals(Object that) {
-	 return (this.currentCity == ((State) that).currentCity) && (this.destinationCity == ((State) that).destinationCity);
-	 }
+	public City getToCity() {
+		return this.toCity;
+	}
+
+	public City getFromCity() {
+		return this.fromCity;
+	}
 }

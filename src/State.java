@@ -8,10 +8,16 @@ import logist.task.Task;
  */
 public class State {
 	private City currentCity;
-	private Task availableTask;
-
-	public State(City currentCity, Task availableTask) {
+	private City destinationCity;
+	
+	public State(City currentCity, City destinationCity) {
 		this.currentCity = currentCity;
-		this.availableTask = availableTask;
+		this.destinationCity = destinationCity;
 	}
+	
+	//TODO: Check if this works. There might be an issue with Cities not being equal
+	 @Override
+	 public boolean equals(Object that) {
+	 return (this.currentCity == ((State) that).currentCity) && (this.destinationCity == ((State) that).destinationCity);
+	 }
 }

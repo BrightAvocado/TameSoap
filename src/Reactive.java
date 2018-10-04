@@ -28,7 +28,7 @@ public class Reactive implements ReactiveBehavior {
 		this.discount = discount;
 		this.numActions = 0;
 		this.myAgent = agent;
-		this.stateActionTable = new StateActionTable(td);
+		this.stateActionTable = new StateActionTable(topology, td);
 	}
 
 	/**
@@ -37,10 +37,7 @@ public class Reactive implements ReactiveBehavior {
 	 */
 	@Override
 	public Action act(Vehicle vehicle, Task availableTask) {
-		Action action;
-
-		State currentState = new State(vehicle.getCurrentCity(), availableTask);
-		action = stateActionTable.best(currentState);
+		Action action = null;
 		
 		if (numActions >= 1) {
 			System.out.println("The total profit after "+numActions+" actions is "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");

@@ -52,16 +52,29 @@ public class StateActionTable {
 		}
 		
 		//Create list of ALL possible Action
-		ArrayList<Action> actionList = new ArrayList<Action>();
+		ArrayList<ActionWrapper> actionWrapperList = new ArrayList<ActionWrapper>();
+		
+		//Add the actions of moving to all cities 
 		for (City city: cityList) {
-			actionList.add(new Move(city));
-			
+			ActionWrapper actionWrapper = new ActionWrapper(new Move(city), city);
+			actionWrapperList.add(actionWrapper);//The action is "Go to *city*, I'm not taking the cast"
 		}
+		//Add the action of pick up
+		ActionWrapper pickupWrapper = new ActionWrapper(new Pickup(null), null);
+		actionWrapperList.add(pickupWrapper);
 		
 		//Step 1
 		for (State currentState: stateList) {
 			for (State futureState: stateList) {
-				for ()
+				for (ActionWrapper actionWrapper: actionWrapperList) {
+					if ((currentState.getToCity() != currentState.getFromCity())
+							&& (futureState.getToCity() != futureState.getFromCity())
+							&& (currentState.getFromCity() != futureState.getFromCity())) {
+						
+					} else {
+						
+					}
+				}
 			}
 		}
 		return T;

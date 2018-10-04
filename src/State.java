@@ -22,12 +22,12 @@ public class State {
 		return (this.fromCity == ((State) that).fromCity)
 				&& (this.toCity == ((State) that).toCity);
 	}
-	
-	public City getToCity() {
-		return this.toCity;
-	}
 
 	public City getFromCity() {
 		return this.fromCity;
+	}
+	
+	public City getToCity() {
+		return this.toCity;
 	}
 }

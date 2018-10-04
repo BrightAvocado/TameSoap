@@ -26,13 +26,9 @@ public class StateActionTable {
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
 		this.T = computeStateTransitionProbability();
-		
-		System.out.println(this.T);//debug
-		int[] a = null;//debug
-		a[2] = 1;//debug
 	}
 
-	public ArrayList<ArrayList<ArrayList<Double>>> computeStateTransitionProbability() {
+	private ArrayList<ArrayList<ArrayList<Double>>> computeStateTransitionProbability() {
 
 		// Initialize the T as full of zeros
 		ArrayList<ArrayList<ArrayList<Double>>> T = new ArrayList<ArrayList<ArrayList<Double>>>();

@@ -107,5 +107,15 @@ public class StateActionTable {
 		}
 		return T;
 	}
+
+	//COMPLETE WITH SIMON'S CODE
+	private ArrayList<ArrayList<Double>> computeStateExpectedProfit() {
+		// SIMON DID THIS
+		return new ArrayList<ArrayList<Double>>();
+	}
 	
+	//DO THIS
+	private ArrayList<ArrayList<Double>> computeBest() {
+		return new ArrayList<ArrayList<Double>>();
+	}
 }

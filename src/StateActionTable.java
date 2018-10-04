@@ -11,11 +11,14 @@ import logist.topology.Topology.City;
  */
 public class StateActionTable {
 
+	private static final double COST_PER_KM = 1;
+
 	private TaskDistribution td;
 	private List<City> cityList;
 	private int numCities;
 	private int numActions;
 	private ArrayList<ArrayList<ArrayList<Double>>> T;
+	private ArrayList<ArrayList<Double>> P = new ArrayList<ArrayList<Double>>();
 
 
 	public StateActionTable(Topology topology, TaskDistribution td) {
@@ -26,6 +29,7 @@ public class StateActionTable {
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
 		this.T = computeStateTransitionProbability();
+		computeProfitMatrix(topology, td);
 	}
 
 	private ArrayList<ArrayList<ArrayList<Double>>> computeStateTransitionProbability() {
@@ -108,10 +112,47 @@ public class StateActionTable {
 		return T;
 	}
 
-	//COMPLETE WITH SIMON'S CODE
-	private ArrayList<ArrayList<Double>> computeStateExpectedProfit() {
-		// SIMON DID THIS
-		return new ArrayList<ArrayList<Double>>();
+	public void computeProfitMatrix(Topology topology, TaskDistribution td)
+	{
+		//print city names
+		List<City> cityList = topology.cities();
+				
+		//initialize maps for p, r and d
+		for(int current_from = 0; current_from<numCities; current_from++){
+			
+			for(int current_to = 0; current_to<numCities+1; current_to++){
+				
+				int s = (current_from)*(numCities+1)+current_to;
+
+				ArrayList<Double> nullList = new ArrayList<Double>();
+				P.add(nullList);
+				
+				for(int a = 0; a<numActions; a++){
+				
+					P.get(s).add(a, (double)0); //initialize values as 0
+			
+					City fromCity = cityList.get(current_from);
+					
+					if (a < numCities) //no task
+					{		
+						City toCityAction = cityList.get(a);				
+						P.get(s).set(a, -1*fromCity.distanceTo(toCityAction)*COST_PER_KM);
+					}				
+					else //if there is a task
+					{
+						if (current_to < numCities){
+							City toCity = cityList.get(current_to);
+							double reward = (double) td.reward(fromCity, toCity);
+							double distanceCost = fromCity.distanceTo(toCity)*COST_PER_KM;
+							double profit = reward - distanceCost;
+				
+							P.get(s).set(a, profit);
+
+						}
+					}				
+				}	
+			}
+		}
 	}
 	
 	//DO THIS

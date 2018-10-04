@@ -40,7 +40,7 @@ for current_from=1:9
                     %1) current_to =/= current from
                     %2) future_to =/= future from
                     %3) current_from =/= future from
-                    %4) a) if action is taken (a=10) then current_to MUST EQUAL future_from
+                    %4) a) if task is taken (a=10) then current_to MUST EQUAL future_from
                     %   b) if action is not taken (a<10), then
                     %     i) action =/= current_from
                     %     ii) action MUST EQUAL future_from

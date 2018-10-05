@@ -43,9 +43,9 @@ public class Reactive implements ReactiveBehavior {
 		City currentCity = vehicle.getCurrentCity();
 		
 		if (availableTask == null) {
-			action = this.stateActionTable.getBest(currentCity, null);
+			action = this.stateActionTable.getBestAction(currentCity, null);
 		} else {
-			action = this.stateActionTable.getBest(currentCity, availableTask.deliveryCity);
+			action = this.stateActionTable.getBestAction(currentCity, availableTask.deliveryCity);
 		}
 		
 		if (numActions >= 1) {

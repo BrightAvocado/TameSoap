@@ -3,10 +3,12 @@ import java.util.Collections;
 import java.util.List;
 
 import logist.plan.Action;
+import logist.task.Task;
 import logist.task.TaskDistribution;
 import logist.topology.Topology;
 import logist.topology.Topology.City;
 import logist.plan.Action.Move;
+import logist.plan.Action.Delivery;
 import logist.plan.Action.Pickup;
 
 /**
@@ -24,11 +26,13 @@ public class StateActionTable {
 	private ArrayList<ArrayList<Double>> P = new ArrayList<ArrayList<Double>>();
 	private ArrayList<Integer> best;
 	private double gamma;// discount factor
-
+	
+	
 	public StateActionTable(Topology topology, TaskDistribution td) {
 		// TODO : Make it so that it runs RLA upon construction and population the
 		// state2BestActionMap
 		this.cityList = topology.cities();
+		System.out.println(cityList);//Debug
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
 		this.gamma = 0.95;
@@ -231,11 +235,10 @@ public class StateActionTable {
 				converged = true;
 			}
 		}
-		System.out.println(best);
 		this.best = best;
 	}
-
-	public Action getBestAction(City fromCity, availableTask) {
+	
+	public Action getBestAction(City fromCity, Task availableTask) {
 		Action action = null;
 		
 		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
@@ -243,18 +246,23 @@ public class StateActionTable {
 		//find the numerical values associated with each city
 		int current_from = this.cityList.indexOf(fromCity);
 		int current_to;
-		if (toCity != null) {
-			 current_to = this.cityList.indexOf(toCity);
-		} else {
-			current_to = this.numCities + 1;
+		
+		if (availableTask != null) {//If there was a task in the from city
+			 current_to = this.cityList.indexOf(availableTask.deliveryCity);
+		} else { //TODO: Simon, we do agree that if there's no task, then the "current_to" is this.numCities, right ?
+			current_to = this.numCities;
 		}
 
-		int state = current_from * valueToEncodeState + current_to;
+		//Compute the state
+		int state = current_from * valueToEncodeState + current_to;//TODO: Isn't there an issue here ?
 		
-		if (this.best.get(state) < this.numCities) { // If there was an available task on the from city
-			action = new Move(this.cityList.get(this.best.get(state)));
-		} else {
-			action = new Pickup(availableTask);
+		//What is the best action ?
+		//Take the task
+		if (availableTask != null && this.best.get(state) == this.cityList.indexOf(availableTask.deliveryCity)) {
+			action = new Delivery(availableTask);
+		} else { //Don't take the task
+			City toCity = this.cityList.get(this.best.get(state));			
+			action = new Move(fromCity.pathTo(toCity).get(0));//HACKY AF
 		}
 		return action;
 	}

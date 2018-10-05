@@ -28,11 +28,11 @@ public class StateActionTable {
 		this.cityList = topology.cities();
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
-		this.T = computeStateTransitionProbability();
+		computeStateTransitionProbability(td);
 		computeProfitMatrix(topology, td);
 	}
 
-	private ArrayList<ArrayList<ArrayList<Double>>> computeStateTransitionProbability() {
+	private void computeStateTransitionProbability(TaskDistribution td) {
 
 		// Initialize the T as full of zeros
 		ArrayList<ArrayList<ArrayList<Double>>> T = new ArrayList<ArrayList<ArrayList<Double>>>();
@@ -109,7 +109,7 @@ public class StateActionTable {
 				}
 			}
 		}
-		return T;
+		this.T = T;
 	}
 
 	public void computeProfitMatrix(Topology topology, TaskDistribution td)

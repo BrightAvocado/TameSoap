@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import logist.plan.Action;
 import logist.task.TaskDistribution;
 import logist.topology.Topology;
 import logist.topology.Topology.City;
@@ -116,7 +117,7 @@ public class StateActionTable {
 		this.T = T;
 	}
 
-	public void computeProfitMatrix(Topology topology, TaskDistribution td)
+	private void computeProfitMatrix(Topology topology, TaskDistribution td)
 	{
 		//print city names
 		List<City> cityList = topology.cities();
@@ -229,5 +230,9 @@ public class StateActionTable {
 		}
 		System.out.println(best);
 		this.best = best;
+	}
+	
+	public Action getBestAction(City fromCity, City toCity) {
+		//todo
 	}
 }

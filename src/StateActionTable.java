@@ -259,11 +259,10 @@ public class StateActionTable {
 		//THIS IS BROKEN
 		//THIS DOESN'T WORK 
 		//What is the best action ?
-		//Take the task
-		if (this.best.get(state) < this.numCities) {//Go to that place
+		if (this.best.get(state) < this.numCities) {//Don't take the package and go elsewhere
 			City toCity = this.cityList.get(this.best.get(state));
 			action = new Move(fromCity.pathTo(toCity).get(0));
-		} else { //Deliver the package
+		} else { //Pick up the task and deliver the package
 			action = new Delivery(availableTask);
 		}
 		return action;

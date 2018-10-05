@@ -6,6 +6,8 @@ import logist.plan.Action;
 import logist.task.TaskDistribution;
 import logist.topology.Topology;
 import logist.topology.Topology.City;
+import logist.plan.Action.Move;
+import logist.plan.Action.Pickup;
 
 /**
  * This class provides you with the best action to do given a certain state
@@ -21,8 +23,7 @@ public class StateActionTable {
 	private ArrayList<ArrayList<ArrayList<Double>>> T;
 	private ArrayList<ArrayList<Double>> P = new ArrayList<ArrayList<Double>>();
 	private ArrayList<Integer> best;
-	private double gamma;//discount factor 
-
+	private double gamma;// discount factor
 
 	public StateActionTable(Topology topology, TaskDistribution td) {
 		// TODO : Make it so that it runs RLA upon construction and population the
@@ -34,7 +35,7 @@ public class StateActionTable {
 		computeStateTransitionProbability(td);
 		computeProfitMatrix(topology, td);
 		computeBest();
-		
+
 	}
 
 	private void computeStateTransitionProbability(TaskDistribution td) {
@@ -53,8 +54,8 @@ public class StateActionTable {
 			}
 			T.add(zero_array);
 		}
-		
-		//SO FAR SO GOOD
+
+		// SO FAR SO GOOD
 
 		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
 
@@ -76,33 +77,36 @@ public class StateActionTable {
 									&& (current_from != future_from)) {
 								if ((action == this.numActions - 1) && (current_to == future_from)) {
 									if (future_to == this.numCities) {
-										
-										//Compute sum
+
+										// Compute sum
 										double sum = 0;
 										for (int city_to = 0; city_to < this.numCities; city_to++) {
-											sum += td.probability(this.cityList.get(future_from), this.cityList.get(city_to));
+											sum += td.probability(this.cityList.get(future_from),
+													this.cityList.get(city_to));
 										}
-										
-										T.get(state).get(action).set(future_state, 1- sum);
+
+										T.get(state).get(action).set(future_state, 1 - sum);
 									} else {
-										double p = td.probability(this.cityList.get(future_from), this.cityList.get(future_to));
+										double p = td.probability(this.cityList.get(future_from),
+												this.cityList.get(future_to));
 										T.get(state).get(action).set(future_state, p);
 									}
 								} else {
-									if ((action != current_from)
-											&& (action == future_from)) {
+									if ((action != current_from) && (action == future_from)) {
 										if (future_to == this.numCities) {
-											
-											//Compute sum
+
+											// Compute sum
 											double sum = 0;
 											for (int city_to = 0; city_to < this.numCities; city_to++) {
-												sum += td.probability(this.cityList.get(future_from), this.cityList.get(city_to));
+												sum += td.probability(this.cityList.get(future_from),
+														this.cityList.get(city_to));
 											}
-											
-											T.get(state).get(action).set(future_state, 1- sum);
-											
+
+											T.get(state).get(action).set(future_state, 1 - sum);
+
 										} else {
-											double p = td.probability(this.cityList.get(future_from), this.cityList.get(future_to));
+											double p = td.probability(this.cityList.get(future_from),
+													this.cityList.get(future_to));
 											T.get(state).get(action).set(future_state, p);
 										}
 									}
@@ -117,62 +121,60 @@ public class StateActionTable {
 		this.T = T;
 	}
 
-	private void computeProfitMatrix(Topology topology, TaskDistribution td)
-	{
-		//print city names
+	private void computeProfitMatrix(Topology topology, TaskDistribution td) {
+		// print city names
 		List<City> cityList = topology.cities();
-				
-		//initialize maps for p, r and d
-		for(int current_from = 0; current_from<numCities; current_from++){
-			
-			for(int current_to = 0; current_to<numCities+1; current_to++){
-				
-				int s = (current_from)*(numCities+1)+current_to;
+
+		// initialize maps for p, r and d
+		for (int current_from = 0; current_from < numCities; current_from++) {
+
+			for (int current_to = 0; current_to < numCities + 1; current_to++) {
+
+				int s = (current_from) * (numCities + 1) + current_to;
 
 				ArrayList<Double> nullList = new ArrayList<Double>();
 				P.add(nullList);
-				
-				for(int a = 0; a<numActions; a++){
-				
-					P.get(s).add(a, (double)0); //initialize values as 0
-			
+
+				for (int a = 0; a < numActions; a++) {
+
+					P.get(s).add(a, (double) 0); // initialize values as 0
+
 					City fromCity = cityList.get(current_from);
-					
-					if (a < numCities) //no task
-					{		
-						City toCityAction = cityList.get(a);				
-						P.get(s).set(a, -1*fromCity.distanceTo(toCityAction)*COST_PER_KM);
-					}				
-					else //if there is a task
+
+					if (a < numCities) // no task
 					{
-						if (current_to < numCities){
+						City toCityAction = cityList.get(a);
+						P.get(s).set(a, -1 * fromCity.distanceTo(toCityAction) * COST_PER_KM);
+					} else // if there is a task
+					{
+						if (current_to < numCities) {
 							City toCity = cityList.get(current_to);
 							double reward = (double) td.reward(fromCity, toCity);
-							double distanceCost = fromCity.distanceTo(toCity)*COST_PER_KM;
+							double distanceCost = fromCity.distanceTo(toCity) * COST_PER_KM;
 							double profit = reward - distanceCost;
-				
+
 							P.get(s).set(a, profit);
 
 						}
-					}				
-				}	
+					}
+				}
 			}
 		}
 	}
-	
-	//DO THIS
+
+	// DO THIS
 	private void computeBest() {
 		// Create and initialize statesConverged
 		ArrayList<Boolean> statesConverged = new ArrayList<Boolean>();
 		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
 			statesConverged.add(false);
 		}
-		
+
 		boolean converged = false;
-		
+
 		// Create and initialize Q
 		ArrayList<ArrayList<Double>> Q = new ArrayList<ArrayList<Double>>();
-		
+
 		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
 			ArrayList<Double> zero_column = new ArrayList<Double>();
 			for (int k = 0; k < this.numCities + 1; k++) {
@@ -180,40 +182,41 @@ public class StateActionTable {
 			}
 			Q.add(zero_column);
 		}
-		
+
 		// Create and initialize V, which will eventually store the best values...
 		ArrayList<Double> V = new ArrayList<Double>();
 		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
 			V.add(0.0);
 		}
-		
+
 		// Create and initialize VTemp
 		ArrayList<Double> VTemp = new ArrayList<Double>();
 		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
 			VTemp.add(0.0);
-		}		
+		}
 		// Create and initialize best
 		ArrayList<Integer> best = new ArrayList<Integer>();
 		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
 			best.add(0);
 		}
-		
+
 		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
 
 		// Start actual algorithm
 		while (!converged) {
-			for (int current_from = 0;current_from < this.numCities;current_from++) {
-				for (int current_to = 0;current_to < this.numCities + 1;current_to++) {
-					
+			for (int current_from = 0; current_from < this.numCities; current_from++) {
+				for (int current_to = 0; current_to < this.numCities + 1; current_to++) {
+
 					int state = current_from * valueToEncodeState + current_to;
 
-					for (int action = 0;action  < this.numActions;action++) {
-						
+					for (int action = 0; action < this.numActions; action++) {
+
 						double discounted_future = 0;
-						for (int i = 0;i < this.numCities * (this.numCities + 1);i++) {
-							discounted_future = discounted_future + this.T.get(state).get(action).get(i)*V.get(i);
+						for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
+							discounted_future = discounted_future + this.T.get(state).get(action).get(i) * V.get(i);
 						}
-						Q.get(state).set(action, this.P.get(state).get(action) + this.gamma*discounted_future);//update value
+						Q.get(state).set(action, this.P.get(state).get(action) + this.gamma * discounted_future);// update
+																													// value
 					}
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
@@ -231,8 +234,28 @@ public class StateActionTable {
 		System.out.println(best);
 		this.best = best;
 	}
-	
-	public Action getBestAction(City fromCity, City toCity) {
-		//todo
+
+	public Action getBestAction(City fromCity, availableTask) {
+		Action action = null;
+		
+		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
+		
+		//find the numerical values associated with each city
+		int current_from = this.cityList.indexOf(fromCity);
+		int current_to;
+		if (toCity != null) {
+			 current_to = this.cityList.indexOf(toCity);
+		} else {
+			current_to = this.numCities + 1;
+		}
+
+		int state = current_from * valueToEncodeState + current_to;
+		
+		if (this.best.get(state) < this.numCities) { // If there was an available task on the from city
+			action = new Move(this.cityList.get(this.best.get(state)));
+		} else {
+			action = new Pickup(availableTask);
+		}
+		return action;
 	}
 }

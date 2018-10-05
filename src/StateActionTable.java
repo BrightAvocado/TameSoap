@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import logist.task.TaskDistribution;
@@ -13,23 +14,26 @@ public class StateActionTable {
 
 	private static final double COST_PER_KM = 1;
 
-	private TaskDistribution td;
 	private List<City> cityList;
 	private int numCities;
 	private int numActions;
 	private ArrayList<ArrayList<ArrayList<Double>>> T;
 	private ArrayList<ArrayList<Double>> P = new ArrayList<ArrayList<Double>>();
+	private ArrayList<Integer> best;
+	private double gamma;//discount factor 
 
 
 	public StateActionTable(Topology topology, TaskDistribution td) {
 		// TODO : Make it so that it runs RLA upon construction and population the
 		// state2BestActionMap
-		this.td = td;
 		this.cityList = topology.cities();
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
+		this.gamma = 0.95;
 		computeStateTransitionProbability(td);
 		computeProfitMatrix(topology, td);
+		computeBest();
+		
 	}
 
 	private void computeStateTransitionProbability(TaskDistribution td) {
@@ -156,7 +160,74 @@ public class StateActionTable {
 	}
 	
 	//DO THIS
-	private ArrayList<ArrayList<Double>> computeBest() {
-		return new ArrayList<ArrayList<Double>>();
+	private void computeBest() {
+		// Create and initialize statesConverged
+		ArrayList<Boolean> statesConverged = new ArrayList<Boolean>();
+		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
+			statesConverged.add(false);
+		}
+		
+		boolean converged = false;
+		
+		// Create and initialize Q
+		ArrayList<ArrayList<Double>> Q = new ArrayList<ArrayList<Double>>();
+		
+		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
+			ArrayList<Double> zero_column = new ArrayList<Double>();
+			for (int k = 0; k < this.numCities + 1; k++) {
+				zero_column.add(0.0);
+			}
+			Q.add(zero_column);
+		}
+		
+		// Create and initialize V, which will eventually store the best values...
+		ArrayList<Double> V = new ArrayList<Double>();
+		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
+			V.add(0.0);
+		}
+		
+		// Create and initialize VTemp
+		ArrayList<Double> VTemp = new ArrayList<Double>();
+		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
+			VTemp.add(0.0);
+		}		
+		// Create and initialize best
+		ArrayList<Integer> best = new ArrayList<Integer>();
+		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
+			best.add(0);
+		}
+		
+		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
+
+		// Start actual algorithm
+		while (!converged) {
+			for (int current_from = 0;current_from < this.numCities;current_from++) {
+				for (int current_to = 0;current_to < this.numCities + 1;current_to++) {
+					
+					int state = current_from * valueToEncodeState + current_to;
+
+					for (int action = 0;action  < this.numActions;action++) {
+						
+						double discounted_future = 0;
+						for (int i = 0;i < this.numCities * (this.numCities + 1);i++) {
+							discounted_future = discounted_future + this.T.get(state).get(action).get(i)*V.get(i);
+						}
+						Q.get(state).set(action, this.P.get(state).get(action) + this.gamma*discounted_future);//update value
+					}
+					VTemp.set(state, Collections.max(Q.get(state)));
+					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
+					double error = 0.1;
+					if (VTemp.get(state) - V.get(state) < error) {
+						statesConverged.set(state, true);
+					}
+					V.set(state, VTemp.get(state));
+				}
+			}
+			if (statesConverged.indexOf(false) == -1) {
+				converged = true;
+			}
+		}
+		System.out.println(best);
+		this.best = best;
 	}
 }

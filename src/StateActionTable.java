@@ -27,7 +27,6 @@ public class StateActionTable {
 	private ArrayList<Integer> best;
 	private double gamma;// discount factor
 	
-	
 	public StateActionTable(Topology topology, TaskDistribution td) {
 		// TODO : Make it so that it runs RLA upon construction and population the
 		// state2BestActionMap
@@ -256,13 +255,16 @@ public class StateActionTable {
 		//Compute the state
 		int state = current_from * valueToEncodeState + current_to;//TODO: Isn't there an issue here ?
 		
+		//START TO DEBUG BY FIXING THIS PART OF THE FUNCTION
+		//THIS IS BROKEN
+		//THIS DOESN'T WORK 
 		//What is the best action ?
 		//Take the task
-		if (availableTask != null && this.best.get(state) == this.cityList.indexOf(availableTask.deliveryCity)) {
+		if (this.best.get(state) < this.numCities) {//Go to that place
+			City toCity = this.cityList.get(this.best.get(state));
+			action = new Move(fromCity.pathTo(toCity).get(0));
+		} else { //Deliver the package
 			action = new Delivery(availableTask);
-		} else { //Don't take the task
-			City toCity = this.cityList.get(this.best.get(state));			
-			action = new Move(fromCity.pathTo(toCity).get(0));//HACKY AF
 		}
 		return action;
 	}

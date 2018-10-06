@@ -248,7 +248,7 @@ public class StateActionTable {
 		
 		if (availableTask != null) {//If there was a task in the from city
 			 current_to = this.cityList.indexOf(availableTask.deliveryCity);
-		} else { //TODO: Simon, we do agree that if there's no task, then the "current_to" is this.numCities, right ?
+		} else { 
 			current_to = this.numCities;
 		}
 

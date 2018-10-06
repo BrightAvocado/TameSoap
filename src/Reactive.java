@@ -42,7 +42,7 @@ public class Reactive implements ReactiveBehavior {
 		
 		City currentCity = vehicle.getCurrentCity();
 		
-		action = this.stateActionTable.getBestAction(currentCity, availableTask);		
+		action = this.stateActionTable.getAction(currentCity, availableTask);		
 		
 		if (numActions >= 1) {
 			System.out.println("The total profit after "+numActions+" actions is "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");

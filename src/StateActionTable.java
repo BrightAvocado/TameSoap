@@ -20,6 +20,7 @@ public class StateActionTable {
 	private static final double COST_PER_KM = 1;
 
 	private List<City> cityList;
+	private List<City> futureCities;
 	private int numCities;
 	private int numActions;
 	private ArrayList<ArrayList<ArrayList<Double>>> T;
@@ -31,6 +32,7 @@ public class StateActionTable {
 		// TODO : Make it so that it runs RLA upon construction and population the
 		// state2BestActionMap
 		this.cityList = topology.cities();
+		this.futureCities = new ArrayList<City>();
 		System.out.println(cityList);//Debug
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
@@ -237,6 +239,17 @@ public class StateActionTable {
 		this.best = best;
 	}
 	
+	public Action getAction(City fromCity, Task availableTask) {
+		Action action = null;
+		if (!this.futureCities.isEmpty()) {
+			action = new Move(this.futureCities.get(0));
+			this.futureCities.remove(0);
+		} else {
+			action = this.getBestAction(fromCity, availableTask);
+		}
+		return action;
+	}
+	
 	public Action getBestAction(City fromCity, Task availableTask) {
 		Action action = null;
 		
@@ -261,7 +274,11 @@ public class StateActionTable {
 		//What is the best action ?
 		if (this.best.get(state) < this.numCities) {//Don't take the package and go elsewhere
 			City toCity = this.cityList.get(this.best.get(state));
-			action = new Move(fromCity.pathTo(toCity).get(0));
+			
+			this.futureCities = fromCity.pathTo(toCity);
+			action = new Move(this.futureCities.get(0));
+			this.futureCities.remove(0);
+			
 		} else { //Pick up the task and deliver the package
 			action = new Delivery(availableTask);
 		}

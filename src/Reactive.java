@@ -31,7 +31,7 @@ public class Reactive implements ReactiveBehavior {
 		this.stateActionTable = new StateActionTable(topology, td);
 	}
 
-	//TO COMPLETE
+
 	/**
 	 * Determine the best Action according to the stateActionTable of this Agent and do that.
 	 * Then log how many actions have been made so far and print it to the user.

@@ -29,8 +29,6 @@ public class StateActionTable {
 	private double gamma;// discount factor
 	
 	public StateActionTable(Topology topology, TaskDistribution td) {
-		// TODO : Make it so that it runs RLA upon construction and population the
-		// state2BestActionMap
 		this.cityList = topology.cities();
 		this.futureCities = new ArrayList<City>();
 		System.out.println(cityList);//Debug
@@ -62,7 +60,7 @@ public class StateActionTable {
 
 		// SO FAR SO GOOD
 
-		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
+		int valueToEncodeState = this.numCities + 1;
 
 		for (int current_from = 0; current_from < this.numCities; current_from++) {
 			for (int current_to = 0; current_to < this.numCities + 1; current_to++) {
@@ -75,7 +73,7 @@ public class StateActionTable {
 						/*
 						 * Action are encoded such that : if it's a number corresponding to a city, it
 						 * means you have a task and you need to go to that city. It its value isn't the
-						 * value of a city, then you pick up (right Simon ? TODO : ASK)
+						 * value of a city, then you pick up 
 						 */
 						for (int action = 0; action < this.numActions; action++) {
 							if ((current_to != current_from) && (future_to != future_from)
@@ -253,7 +251,7 @@ public class StateActionTable {
 	public Action getBestAction(City fromCity, Task availableTask) {
 		Action action = null;
 		
-		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
+		int valueToEncodeState = this.numCities + 1;
 		
 		//find the numerical values associated with each city
 		int current_from = this.cityList.indexOf(fromCity);
@@ -266,12 +264,8 @@ public class StateActionTable {
 		}
 
 		//Compute the state
-		int state = current_from * valueToEncodeState + current_to;//TODO: Isn't there an issue here ?
+		int state = current_from * valueToEncodeState + current_to;
 		
-		//START TO DEBUG BY FIXING THIS PART OF THE FUNCTION
-		//THIS IS BROKEN
-		//THIS DOESN'T WORK 
-		//What is the best action ?
 		if (this.best.get(state) < this.numCities) {//Don't take the package and go elsewhere
 			City toCity = this.cityList.get(this.best.get(state));
 			

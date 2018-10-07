@@ -2,8 +2,6 @@ import logist.simulation.Vehicle;
 import logist.agent.Agent;
 import logist.behavior.ReactiveBehavior;
 import logist.plan.Action;
-import logist.plan.Action.Move;
-import logist.plan.Action.Pickup;
 import logist.task.Task;
 import logist.task.TaskDistribution;
 import logist.topology.Topology;

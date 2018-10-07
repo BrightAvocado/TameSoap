@@ -9,7 +9,6 @@ import logist.topology.Topology;
 import logist.topology.Topology.City;
 import logist.plan.Action.Move;
 import logist.plan.Action.Delivery;
-import logist.plan.Action.Pickup;
 
 /**
  * This class provides you with the best action to do given a certain state
@@ -17,7 +16,7 @@ import logist.plan.Action.Pickup;
  */
 public class StateActionTable {
 
-	private static final double COST_PER_KM = 1;
+	private static final double COST_PER_KM = 5;
 
 	private List<City> cityList;
 	private List<City> futureCities;
@@ -152,7 +151,7 @@ public class StateActionTable {
 					{
 						if (current_to < numCities) {
 							City toCity = cityList.get(current_to);
-							double reward = (double) td.reward(fromCity, toCity);
+							double reward = td.reward(fromCity, toCity);
 							double distanceCost = fromCity.distanceTo(toCity) * COST_PER_KM;
 							double profit = reward - distanceCost;
 

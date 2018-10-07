@@ -14,7 +14,8 @@ public class Reactive implements ReactiveBehavior {
 	private int numActions;
 	private Agent myAgent;
 	private StateActionTable stateActionTable;
-
+	private static final int PRINT_RATE = 10;
+	
 	@Override
 	public void setup(Topology topology, TaskDistribution td, Agent agent) {
 
@@ -42,8 +43,8 @@ public class Reactive implements ReactiveBehavior {
 		
 		action = this.stateActionTable.getAction(currentCity, availableTask);		
 		
-		if (numActions >= 1) {
-			System.out.println("The total profit after "+numActions+" actions is "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
+		if ((numActions >= 1) && (numActions % PRINT_RATE == 0)) {			
+			System.out.println("Agent: "+myAgent.name()+ "has made "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
 		}
 		numActions++;
 		

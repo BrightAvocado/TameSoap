@@ -30,7 +30,7 @@ public class StateActionTable {
 	public StateActionTable(Topology topology, TaskDistribution td) {
 		this.cityList = topology.cities();
 		this.futureCities = new ArrayList<City>();
-		System.out.println(cityList);//Debug
+		//System.out.println(cityList);//Debug
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
 		this.gamma = 0.95;

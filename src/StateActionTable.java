@@ -27,13 +27,13 @@ public class StateActionTable {
 	private ArrayList<Integer> best;
 	private double gamma;// discount factor
 	
-	public StateActionTable(Topology topology, TaskDistribution td) {
+	public StateActionTable(Topology topology, TaskDistribution td, Double gamma) {
 		this.cityList = topology.cities();
 		this.futureCities = new ArrayList<City>();
 		//System.out.println(cityList);//Debug
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
-		this.gamma = 0.95;
+		this.gamma = gamma;
 		computeStateTransitionProbability(td);
 		computeProfitMatrix(topology, td);
 		computeBest();

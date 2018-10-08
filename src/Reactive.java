@@ -27,7 +27,7 @@ public class Reactive implements ReactiveBehavior {
 		this.discount = discount;
 		this.numActions = 0;
 		this.myAgent = agent;
-		this.stateActionTable = new StateActionTable(topology, td);
+		this.stateActionTable = new StateActionTable(topology, td, discount);
 	}
 
 

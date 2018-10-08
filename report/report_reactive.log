@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.22)  8 OCT 2018 19:04
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.9.22)  8 OCT 2018 21:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -392,11 +392,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 62--63
 
  []
 
-<p1.png, id=16, 617.30624pt x 302.12875pt>
+<p1.png, id=16, 673.51625pt x 374.39874pt>
 File: p1.png Graphic file (type png)
  <use p1.png>
 Package pdftex.def Info: p1.png used on input line 73.
-(pdftex.def)             Requested size: 249.33128pt x 122.02954pt.
+(pdftex.def)             Requested size: 249.33128pt x 138.59962pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 79--80
 
@@ -419,6 +419,16 @@ Underfull \hbox (badness 10000) in paragraph at lines 83--84
 
 Underfull \hbox (badness 10000) in paragraph at lines 85--86
 
+ []
+
+
+Underfull \hbox (badness 3826) in paragraph at lines 89--90
+\OT1/cmr/m/n/10.95 As we can see in Fig-ure 1, once enough
+ []
+
+
+Underfull \hbox (badness 2521) in paragraph at lines 89--90
+\OT1/cmr/m/n/10.95 eled of each agent set-tles around a cer-tain
  []
 
 
@@ -447,33 +457,33 @@ Underfull \hbox (badness 1019) in paragraph at lines 104--105
  []
 
 
-Underfull \hbox (badness 4168) in paragraph at lines 104--105
-\OT1/cmr/m/n/10.95 trained agents' av-er-age prof-its com-pared to
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 104--105
 
  []
 
 
-Overfull \hbox (10.32848pt too wide) in paragraph at lines 107--108
+Underfull \hbox (badness 10000) in paragraph at lines 106--107
+
+ []
+
+
+Overfull \hbox (10.32848pt too wide) in paragraph at lines 108--109
 \OT1/cmr/m/n/10.95 : \OT1/pcr/m/n/10.95 reactive-random \OT1/cmr/m/n/10.95 and 
 \OT1/pcr/m/n/10.95 reactive-random-50\OT1/cmr/m/n/10.95 . 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 107--108
+Underfull \hbox (badness 10000) in paragraph at lines 108--109
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 109--110
+Underfull \hbox (badness 10000) in paragraph at lines 110--111
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 113--114
+Underfull \hbox (badness 10000) in paragraph at lines 114--115
 
  []
 
@@ -503,7 +513,7 @@ re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texm
 f/fonts/type1/public/cm-super/sfrm1095.pfb></usr/share/texmf/fonts/type1/public
 /cm-super/sfrm1200.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/u
 crr8a.pfb>
-Output written on report_reactive.pdf (3 pages, 163780 bytes).
+Output written on report_reactive.pdf (3 pages, 200090 bytes).
 PDF statistics:
  69 PDF objects out of 1000 (max. 8388607)
  47 compressed objects within 1 object stream

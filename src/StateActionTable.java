@@ -221,7 +221,7 @@ public class StateActionTable {
 					}
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
-					double error = 0.1;
+					double error = 0.001;
 					if (VTemp.get(state) - V.get(state) < error) {
 						statesConverged.set(state, true);
 					}

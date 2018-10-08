@@ -33,7 +33,7 @@
 	
 		<company name="Company A">
 			<!-- the first vehicle (blue) -->
-			<vehicle name="Random, γ=0.85">
+			<vehicle name="RLA, γ=0.01">
 				<set color="#0000ff" />
 				<set home="Amsterdam" />
 				<set speed="90" />
@@ -44,7 +44,7 @@
 		
 		<company name="Company B">
 			<!-- the second vehicle (red) -->
-			<vehicle name="RLA, γ=0.99">
+			<vehicle name="RLA, γ=0.1">
 				<set color="#ff0000" />
 				<set home="Eindhoven" />
 				<set speed="90" />
@@ -55,7 +55,7 @@
 				
 		<company name="Company C">
 			<!-- the third vehicle (green) -->
-			<vehicle name="RLA, γ=0.85">
+			<vehicle name="RLA, γ=0.5">
 				<set color="#00ff00" />
 				<set home="Den Haag" />
 				<set speed="90" />
@@ -66,7 +66,7 @@
 		
 		<company name="Company D">
 			<!-- the fourth vehicle (cyan) -->
-			<vehicle name="RLA, γ=0.5">
+			<vehicle name="RLA, γ=0.85">
 				<set color="#00ffff" />
 				<set home="Apeldoorn" />
 				<set speed="90" />
@@ -77,7 +77,7 @@
 		
 		<company name="Company E">
 			<!-- the fifth vehicle (magenta) -->
-			<vehicle name="RLA, γ=0.1">
+			<vehicle name="RLA, γ=0.99">
 				<set color="#ff00ff" />
 				<set home="Utrecht" />
 				<set speed="90" />

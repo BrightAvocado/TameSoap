@@ -54,20 +54,21 @@ To test our created tables, we manually reviewed the generated matrix, and teste
 
 \subsection{Implementation Details}
 % describe the implementation details of the representations above and the implementation details of the reinforcement learning algorithm you implemented
-All mentioned tables and matrices were structured as nested ArrayLists so that memory could be dynamically allocated when different .xml files are used. By looping through all possible index combinations and applying the conditions above, the tables could be initialized with values. \\
+Despite vehicles only being able to travel to directly adjacent cities, agents are allowed to decide to move to any city if it the decision algorithm indicates it is the best decision. However, when the agent reaches an intermediary city, the agent is still able to re-evaluate the decision based on the actual state reached. For instance, if the intermediary city has an improbable yet valuable task available, the agent could change course and accept the task. \\
 
 To compute the best action, $Best(s)$ for each possible state, an iterative optimization algorithm was is computed at the start of each simulation. For each starting state, every action was considered and the reward for that action was determined using the previously determined Profit matrix. Then, to consider future possibilities leading from the resulting state, for each possible future state, the state transition probability was multiplied by the max value of the future state, $V(s')$, and discounted by a factor $\gamma$. The max possible value, $V(s)$, for all actions value is stored, and then serves as the baseline for the next iteration of calculations. Once the max value converges (due to the discount factor), the best action is set to be the action leading to the max value. \\
 
-Again, all possible states and actions were considered and the best action and maximum values were saved in nested ArrayLists for future use. 
+All mentioned tables and matrices were structured as nested ArrayLists so that memory could be dynamically allocated when different .xml files are used. By looping through all possible index combinations and applying the conditions above, the tables could be initialized with values. Again, all possible states and actions were considered and the best action and maximum values were saved in nested ArrayLists for future use. 
 
 \section{Results}
 % in this section, you describe several results from the experiments with your reactive agent
-
+The simulation was tested thoroughly with different conditions to better understand value of using offline reinforcement learning algorithms, and the importance of different discount factors. 
 \subsection{Experiment 1: Discount factor}
 % the purpose of this experiment is to understand how the discount factor influences the result
 
 \subsubsection{Setting}
 % you describe how you perform the experiment (you also need to specify the configuration used for the experiment)
+The first experiment investigated the short-term and long-term value of different discount factors.
 
 \subsubsection{Observations}
 % you describe the experimental results and the conclusions you inferred from these results

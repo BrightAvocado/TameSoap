@@ -14,27 +14,32 @@
 		<set class-name="template.ReactiveTemplate"/>
 		<set discount-factor=".50"/>
 	</agent>
+	<agent name="reactive-rla-99">
+		<set class-path="bin/"></set>
+		<set class-name="Reactive"></set>
+		<set discount-factor=".99"></set>
+	</agent>
 	<agent name="reactive-rla">
 		<set class-path="bin/"/>
 		<set class-name="Reactive"/>
 		<set discount-factor=".85"/>
 	</agent>
-	<agent name="reactive-rla-low_discount">
-		<set class-path="bin/"></set>
-		<set class-name="Reactive"></set>
-		<set discount-factor=".1"></set>
-	</agent>
-	<agent name="reactive-rla-high_discount">
-		<set class-path="bin/"></set>
-		<set class-name="Reactive"></set>
-		<set discount-factor=".99"></set>
-	</agent>	
-	<agent name="reactive-rla-medium_discount">
+	<agent name="reactive-rla-5">
 		<set class-path="bin/"></set>
 		<set class-name="Reactive"></set>
 		<set discount-factor=".5"></set>
 	</agent>	
-	<agent name="reactive-rla-tiny_discount">
+	<agent name="reactive-rla-1">
+		<set class-path="bin/"></set>
+		<set class-name="Reactive"></set>
+		<set discount-factor=".1"></set>
+	</agent>	
+	<agent name="reactive-rla-05">
+		<set class-path="bin/"></set>
+		<set class-name="Reactive"></set>
+		<set discount-factor=".5"></set>
+	</agent>	
+	<agent name="reactive-rla-01">
 		<set class-path="bin/"></set>
 		<set class-name="Reactive"></set>
 		<set discount-factor=".01"></set>

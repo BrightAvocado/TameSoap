@@ -233,16 +233,21 @@ public class StateActionTable {
 			}
 		}
 		this.best = best;
+		this.printBestTable();
 	}
 	
 	public Action getAction(City fromCity, Task availableTask) {
 		Action action = null;
+		/*
 		if (!this.futureCities.isEmpty()) {
 			action = new Move(this.futureCities.get(0));
 			this.futureCities.remove(0);
 		} else {
 			action = this.getBestAction(fromCity, availableTask);
 		}
+		*/
+		//try always calling getBestAction
+		action = this.getBestAction(fromCity, availableTask);
 		return action;
 	}
 	
@@ -276,4 +281,17 @@ public class StateActionTable {
 		}
 		return action;
 	}
+
+	public void printBestTable(){
+		
+		for (int current_from = 0; current_from < this.numCities; current_from++) {
+
+			for (int current_to = 0; current_to < this.numCities + 1; current_to++) {
+				int state = current_from * (this.numCities+1) + current_to;
+				System.out.print(this.best.get(state)+" ");
+			}
+			System.out.println(" ");
+		}		
+	}
+	
 }

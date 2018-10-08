@@ -45,8 +45,12 @@ public class ReactiveTemplate implements ReactiveBehavior {
 			action = new Pickup(availableTask);
 		}
 		
+		if (numActions%50 == 0) {
+			System.out.println(numActions + " " + myAgent.getTotalProfit());
+		}
+		
 		if (numActions >= 1) {
-			System.out.println("The total profit after "+numActions+" actions is "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
+			//System.out.println("The total profit after "+numActions+" actions is "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
 		}
 		numActions++;
 		

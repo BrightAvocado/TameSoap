@@ -5,6 +5,7 @@
 \usepackage{textcomp}
 \usepackage[top=0.8in, bottom=0.8in, left=0.8in, right=0.8in]{geometry}
 % add other packages here
+\usepackage{courier}
 
 % put your group number and names in the author field
 \title{\bf Exercise 2: A Reactive Agent for the Pickup and Delivery Problem}
@@ -74,16 +75,18 @@ The first experiment investigated the short-term and long-term value of differen
 
 In order to do that, we ran XXX separate simulations with the following discount rate : XXX.\\
 
-We recorded the average profit of each agent every 50 actions, until the 5000th action had been made.\\
+Each simulation used the configuration specified by the \texttt{reactive2.xml} file.\\
+
+We recorded the average profit of each agent every 50 actions, until the 5000th action had been made and plotted the result (see Figure XXX).\\
 
 
 \subsubsection{Observations}
 As we can see in Figure XXX, once enough actions have been made, the average profit of each agent settles around a certain value.\\
 
-Another important observation is how the variation of the discount factor influences this value. There's barely any change for a discount factors ranging from 0.2 to 0.99. But once we read a discount factor of 0.2 and below, the "settling value" of the average profit increases in a quicker fashion.\\
+Another important observation is how the variation of the discount factor influences the average profit. There's barely any change for a discount factors ranging from 0.2 to 0.99. But once we read a discount factor of 0.2 and below, the "settling value" of the average profit increases in a quicker fashion.\\
 % you describe the experimental results and the conclusions you inferred from these results
 
-\subsection{Experiment 2: Comparisons with random agents}
+\subsection{Experiment 2: Comparisons with dummy agents}
 % you compare the results of your agent with two dummy agents: the random agent that was already given in the starter files and another dummy agent that you define and create. You should report the results from the simulations using the topologies given in the starter files and optionally, additional topologies that you create.
 
 \subsubsection{Setting}
@@ -91,14 +94,5 @@ Another important observation is how the variation of the discount factor influe
 
 \subsubsection{Observations}
 % elaborate on the observed results
-
-\vdots
-
-\subsection{Experiment n}
-% other experiments you would like to present
-
-\subsubsection{Setting}
-
-\subsubsection{Observations}
 
 \end{document}

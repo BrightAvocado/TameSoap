@@ -8,6 +8,7 @@
 \usepackage{courier}
 \usepackage{graphicx}
 \usepackage{array}
+\usepackage{wrapfig}
 % put your group number and names in the author field
 \title{\bf Exercise 2: A Reactive Agent for the Pickup and Delivery Problem}
 \author{Group \textnumero76: Simon Honigmann, Arthur Gassner}
@@ -67,12 +68,12 @@ All mentioned tables and matrices were structured as nested ArrayLists so that m
 The simulation was tested thoroughly with different conditions to better understand value of using offline reinforcement learning algorithms, and the importance of different discount factors. 
 \subsection{Experiment 1: Discount factor}
 % the purpose of this experiment is to understand how the discount factor influences the result
-\begin{figure}[h]
+\begin{wrapfigure}{R}{0.5\textwidth}
 	\centering
-	\includegraphics[height=2in,width=3.3in]{p1}
+	\includegraphics[width=0.5\textwidth]{p1}
 	\caption{Average profit for 6 agents with different discount factors traveling in The Netherlands}
 	\label{figure:1}
-\end{figure}
+\end{wrapfigure}
 \subsubsection{Setting}
 % you describe how you perform the experiment (you also need to specify the configuration used for the experiment)
 The first experiment investigates the short-term and long-term value of different discount factors.\\
@@ -87,27 +88,30 @@ We recorded the average profit of each agent every 50 actions, until the 4000th 
 \subsubsection{Observations}
 As we can see in Figure 1, once enough actions have been made, the average profit of each agent settles around a certain value.\\
 
-Another important observation is how the variation of the discount factor influences the average profit. There's barely any change for a discount factors ranging from 0.2 to 0.99. But once we read a discount factor of 0.2 and below, the "settling value" of the average profit increases in a quicker fashion.\\
+Another important observation is how the variation of the discount factor influences the average profit. There's barely any change for a discount factors ranging from 0.2 to 0.99. But once we use a discount factor of 0.2 and below, the "settling value" of the average profit increases in a quicker fashion.\\
 % you describe the experimental results and the conclusions you inferred from these results
 
 \subsection{Experiment 2: Comparisons with dummy agents}
 % you compare the results of your agent with two dummy agents: the random agent that was already given in the starter files and another dummy agent that you define and create. You should report the results from the simulations using the topologies given in the starter files and optionally, additional topologies that you create
-\begin{figure}[h]
+\begin{wrapfigure}{R}{0.5\textwidth}
 	\centering
-	\includegraphics[height=2in,width=3.3in]{p21}
-	\caption{Average profit for 6 agents with different discount factors traveling in The Netherlands}
+	\includegraphics[width=0.5\textwidth]{p21}
+	\caption{Average profit of our RLA agent and two dummy agents in four different countries}
 	\label{figure:1}
-\end{figure}
+\end{wrapfigure}
 \subsubsection{Setting}
 % you describe how you perform the experiment and you describe the dummy agent you created (you also need to specify the configuration used for the experiment)
-The second experiment investigates how RLA trained agents' average profits compared to dummy agents' profit.\\
+The second experiment investigates how RLA trained agents' average profits compared to dummy agents' average profit.\\
 
 
 To simulate the dummy agents, we used the \texttt{ReactiveTemplate.java} provided. We used the two dummy agents specified in \texttt{agents.xml} : \texttt{reactive-random} and \texttt{reactive-random-50}.\\
 
-To simulate the dummy agents, we used the \texttt{ReactiveTemplate.java} provided. We used the two dummy agents specified in \texttt{agents.xml} : \texttt{reactive-random} and \texttt{reactive-random-50}.\\
+We ran each simulation for the four different topologies provided.\\
 
 \subsubsection{Observations}
 % elaborate on the observed results
+We can see that the RLA trained agent performs better than both dummy agents.\\
+
+Secondly, the
 
 \end{document}

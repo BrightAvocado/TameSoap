@@ -71,16 +71,14 @@ The simulation was tested thoroughly with different conditions to better underst
 \begin{wrapfigure}{R}{0.5\textwidth}
 	\centering
 	\includegraphics[width=0.5\textwidth]{p1}
-	\caption{Average profit for 6 agents with different discount factors traveling in The Netherlands}
+	\caption{Reward per distance traveled for 5 agents with different discount factors traveling in the Netherlands}
 	\label{figure:1}
 \end{wrapfigure}
 \subsubsection{Setting}
 % you describe how you perform the experiment (you also need to specify the configuration used for the experiment)
 The first experiment investigates the short-term and long-term value of different discount factors.\\
 
-In order to do that, we simultaneously ran 5 simulations with the following discount rates : 0.05, 0.1, 0.5, 0.85 and 0.99.\\
-
-Each simulation used the configuration specified by the \texttt{reactive2.xml} file.\\
+In order to do that, we simultaneously ran 5 simulations with the following discount rates : 0.05, 0.1, 0.5, 0.85 and 0.99 using the configuration specified by the \texttt{E1reactive2.xml} file.\\
 
 We recorded the reward per distance traveled of each agent and plotted the result (see Figure 1).\\
 
@@ -96,7 +94,7 @@ Another important observation is how the variation of the discount factor influe
 \begin{wrapfigure}{R}{0.5\textwidth}
 	\centering
 	\includegraphics[width=0.55\textwidth]{p21}
-	\caption{Average profit of our RLA agent and two dummy agents in four different countries}
+	\caption{Reward per distance traveled of an RLA trained agent (gamma = 0.99) and two dummy agents, accross four topologies}
 	\label{figure:1}
 \end{wrapfigure}
 \subsubsection{Setting}

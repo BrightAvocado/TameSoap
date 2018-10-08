@@ -28,6 +28,7 @@ public class Reactive implements ReactiveBehavior {
 		this.numActions = 0;
 		this.myAgent = agent;
 		this.stateActionTable = new StateActionTable(topology, td, discount);
+		System.out.println(discount);
 	}
 
 
@@ -43,8 +44,12 @@ public class Reactive implements ReactiveBehavior {
 		
 		action = this.stateActionTable.getAction(currentCity, availableTask);		
 		
+		if (numActions%50 == 0) {
+			System.out.println(numActions + " " + myAgent.getTotalProfit());
+		}
+		
 		if ((numActions >= 1) && (numActions % PRINT_RATE == 0)) {			
-			System.out.println("Agent: "+myAgent.name()+ "has made "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
+			//System.out.println("Agent: "+myAgent.name()+ "has made "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
 		}
 		numActions++;
 		

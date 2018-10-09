@@ -80,24 +80,26 @@ The first experiment investigates the long-term value of different discount fact
 
 \subsubsection{Observations}
 % you describe the experimental results and the conclusions you inferred from these results
-As shown in Figure 1, the \textit{RPD} of each agent converges after enough time has elapsed. Another important observation is how the variation of the discount factor influences the average profit. The higher the discount factor, the higher the \textit{RPD}. That is because a high discount factor implies taking into account the possible "future" rewards an agent can receive. Lower discount factors instead favour immediate rewards. Short term performance is predominantly based on chance, allowing lower discount factor agents the possibility of performing well. However, as the randomness is averaged out over thousands of actions, the agents with higher discount factors and more foresight prevail.
+As shown in Figure 1, the \textit{RPD} of each agent converges after enough time has elapsed. Another important observation is how the variation of the discount factor influences the average profit. The higher the discount factor, the higher the \textit{RPD}. That is because a high discount factor implies taking into account the possible "future" rewards an agent can receive. Lower discount factors instead favour immediate rewards. Short term performance is predominantly based on chance, allowing lower discount factor agents the possibility of performing well. However, as the randomness is averaged out over thousands of actions, the agents with higher discount factors and more foresight prevail.\\
 
 \subsection{Experiment 2: Comparisons with dummy agents}
 % you compare the results of your agent with two dummy agents: the random agent that was already given in the starter files and another dummy agent that you define and create. You should report the results from the simulations using the topologies given in the starter files and optionally, additional topologies that you create
-\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{wrapfigure}{R}{0.6\textwidth}
 	\centering
-	\includegraphics[width=0.55\textwidth]{p21}
+	\includegraphics[width=0.7\textwidth]{ex2}
 	\caption{\textit{RPD} of an RLA trained agent (gamma = 0.99) and two dummy agents, accross four topologies}
 	\label{figure:1}
 \end{wrapfigure}
 \subsubsection{Setting}
 % you describe how you perform the experiment and you describe the dummy agent you created (you also need to specify the configuration used for the experiment)
 The second experiment investigates the performance difference between RLA trained agents and dummy agents. Dummy agents were simulated using the template code provided. We used the two dummy agents specified in \texttt{agents.xml}: \texttt{reactive-random}, and \texttt{reactive-random-50}. The dummy agents had a 85\% and 50\% probability of accepting an available task respectively. We compared these dummy agents to an RLA trained agent using a discount factor of 0.99, specified by \texttt{reactive-rla-99}.\\
+\\
+\\
 
 We ran each simulation for the four different topologies provided (the Netherlands, England, France and Switzerland).\\
 
 \subsubsection{Observations}
 % elaborate on the observed results
-We can see that the RLA trained agent performs consistently better than both dummy agents across all four topologies. This shows that the RLA trained agent makes "wiser" decisions.\\
+We can see that the RLA trained agent performs consistently better than both dummy agents across all four topologies. Comparisons across different topologies help highlight the reliance of early performance on random task generation, and also demonstrates the . This shows that the RLA trained agent makes "wiser" decisions and highlights the weakness of random decision making.\\
 
 \end{document}

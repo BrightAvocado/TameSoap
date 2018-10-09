@@ -219,6 +219,8 @@ public class StateActionTable {
 						Q.get(state).set(action, this.P.get(state).get(action) + this.gamma * discounted_future);// update
 																													// value
 					}
+					Q.get(state).set(Q.get(state).indexOf(Collections.max(Q.get(state))), Collections.min(Q.get(state))); //set no-transition value to min value so it is not selected
+					
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
 					double error = 0.001;

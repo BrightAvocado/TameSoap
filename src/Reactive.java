@@ -44,12 +44,8 @@ public class Reactive implements ReactiveBehavior {
 		
 		action = this.stateActionTable.getBestAction(currentCity, availableTask);		
 		
-		if (numActions%50 == 0) {
-			System.out.println(numActions + " " + myAgent.getTotalProfit());
-		}
-		
 		if ((numActions >= 1) && (numActions % PRINT_RATE == 0)) {			
-			//System.out.println("Agent: "+myAgent.name()+ "has made "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
+			System.out.println("Agent: "+myAgent.name()+ "has made "+myAgent.getTotalProfit()+" (average profit: "+(myAgent.getTotalProfit() / (double)numActions)+")");
 		}
 		numActions++;
 		

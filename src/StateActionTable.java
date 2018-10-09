@@ -53,8 +53,6 @@ public class StateActionTable {
 			T.add(zero_array);
 		}
 
-		// SO FAR SO GOOD
-
 		int valueToEncodeState = this.numCities + 1;
 
 		for (int current_from = 0; current_from < this.numCities; current_from++) {
@@ -219,8 +217,7 @@ public class StateActionTable {
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
 					double error = 0.001;
-					// LOOK HERE YOU
-					// DUMMY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 					while (Collections.max(Q.get(state)) == 0) {
 						double max = Collections.max(Q.get(state));
 						double min = Collections.min(Q.get(state));

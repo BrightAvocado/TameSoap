@@ -19,7 +19,6 @@ public class StateActionTable {
 	private static final double COST_PER_KM = 5;
 
 	private List<City> cityList;
-	private List<City> futureCities;
 	private int numCities;
 	private int numActions;
 	private ArrayList<ArrayList<ArrayList<Double>>> T;
@@ -29,7 +28,6 @@ public class StateActionTable {
 	
 	public StateActionTable(Topology topology, TaskDistribution td, Double gamma) {
 		this.cityList = topology.cities();
-		this.futureCities = new ArrayList<City>();
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
 		this.gamma = gamma;
@@ -219,7 +217,6 @@ public class StateActionTable {
 						Q.get(state).set(action, this.P.get(state).get(action) + this.gamma * discounted_future);// update
 																													// value
 					}
-					Q.get(state).set(Q.get(state).indexOf(Collections.max(Q.get(state))), Collections.min(Q.get(state))); //set no-transition value to min value so it is not selected
 					
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
@@ -235,17 +232,6 @@ public class StateActionTable {
 			}
 		}
 		this.best = best;
-	}
-	
-	public Action getAction(City fromCity, Task availableTask) {
-		Action action = null;
-		if (!this.futureCities.isEmpty()) {
-			action = new Move(this.futureCities.get(0));
-			this.futureCities.remove(0);
-		} else {
-			action = this.getBestAction(fromCity, availableTask);
-		}
-		return action;
 	}
 	
 	public Action getBestAction(City fromCity, Task availableTask) {
@@ -269,9 +255,8 @@ public class StateActionTable {
 		if (this.best.get(state) < this.numCities) {//Don't take the package and go elsewhere
 			City toCity = this.cityList.get(this.best.get(state));
 			
-			this.futureCities = fromCity.pathTo(toCity);
-			action = new Move(this.futureCities.get(0));
-			this.futureCities.remove(0);
+			List<City> futureCities = fromCity.pathTo(toCity);
+			action = new Move(futureCities.get(0));
 			
 		} else { //Pick up the task and deliver the package
 			action = new Delivery(availableTask);

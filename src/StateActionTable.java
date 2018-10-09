@@ -34,8 +34,6 @@ public class StateActionTable {
 		computeStateTransitionProbability(td);
 		computeProfitMatrix(topology, td);
 		computeBest();
-
-		printBestTable();
 	}
 
 	private void computeStateTransitionProbability(TaskDistribution td) {
@@ -68,9 +66,8 @@ public class StateActionTable {
 						int future_state = future_from * valueToEncodeState + future_to;
 
 						/*
-						 * Action are encoded such that : if it's a number
-						 * corresponding to a city, it means you have a task and
-						 * you need to go to that city. It its value isn't the
+						 * Action are encoded such that : if it's a number corresponding to a city, it
+						 * means you have a task and you need to go to that city. It its value isn't the
 						 * value of a city, then you pick up
 						 */
 						for (int action = 0; action < this.numActions; action++) {
@@ -163,7 +160,6 @@ public class StateActionTable {
 		}
 	}
 
-	// DO THIS
 	private void computeBest() {
 		// Create and initialize statesConverged
 		ArrayList<Boolean> statesConverged = new ArrayList<Boolean>();
@@ -202,8 +198,7 @@ public class StateActionTable {
 			best.add(0);
 		}
 
-		int valueToEncodeState = this.numCities + 1;// TODO: I think this works;
-													// not sure
+		int valueToEncodeState = this.numCities + 1;
 
 		// Start actual algorithm
 		while (!converged) {
@@ -250,12 +245,6 @@ public class StateActionTable {
 		this.best = best;
 	}
 
-	public Action getAction(City fromCity, Task availableTask) {
-		Action action = null;
-		action = this.getBestAction(fromCity, availableTask);
-		return action;
-	}
-
 	public Action getBestAction(City fromCity, Task availableTask) {
 		Action action = null;
 
@@ -267,8 +256,7 @@ public class StateActionTable {
 
 		if (availableTask != null) {// If there was a task in the from city
 			current_to = this.cityList.indexOf(availableTask.deliveryCity);
-		} else { // TODO: Simon, we do agree that if there's no task, then the
-					// "current_to" is this.numCities, right ?
+		} else {
 			current_to = this.numCities;
 		}
 
@@ -281,14 +269,14 @@ public class StateActionTable {
 
 			List<City> futureCities = fromCity.pathTo(toCity);
 			action = new Move(futureCities.get(0));
-		} 
-		else {
+		} else {
 			action = new Delivery(availableTask);
 		}
 
 		return action;
 	}
 
+	// Debug function
 	public void printBestTable() {
 
 		for (int current_from = 0; current_from < this.numCities; current_from++) {

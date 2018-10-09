@@ -37,7 +37,7 @@
 	<agent name="reactive-rla-05">
 		<set class-path="bin/"></set>
 		<set class-name="Reactive"></set>
-		<set discount-factor=".5"></set>
+		<set discount-factor=".05"></set>
 	</agent>	
 	<agent name="reactive-rla-01">
 		<set class-path="bin/"></set>

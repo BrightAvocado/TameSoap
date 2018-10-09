@@ -68,7 +68,7 @@ All mentioned tables and matrices were structured as nested ArrayLists so that m
 The simulation was tested thoroughly with different conditions to better understand value of using offline reinforcement learning algorithms, and the importance of different discount factors. It is important to note that our collected data displays each agent's profit, divided by their distance travelled, instead of simply profit which was the value optimized in the reinforcement learning algorithm. That being said, the data presented is still expected to be generally representative of the simulation behaviours. 
 \subsection{Experiment 1: Discount factor}
 % the purpose of this experiment is to understand how the discount factor influences the result
-\begin{wrapfigure}{R}{0.5\textwidth}
+\begin{wrapfigure}{R}{0.4\textwidth}
 	\centering
 	\includegraphics[width=0.5\textwidth]{ex1}
 	\caption{\textit{RPD} for 5 agents with different discount factors travelling in the Netherlands}
@@ -80,7 +80,7 @@ The first experiment investigates the long-term value of different discount fact
 
 \subsubsection{Observations}
 % you describe the experimental results and the conclusions you inferred from these results
-As shown in Figure 1, the \textit{RPD} of each agent converges after enough time has elapsed. Another important observation is how the variation of the discount factor influences the average profit. The higher the discount factor, the higher the \textit{RPD}. That is because a high discount factor implies taking into account the possible "future" rewards an agent can receive. Lower discount factors instead favour immediate rewards. Short term performance is predominantly based on chance, allowing lower discount factor agents the possibility of performing well. However, as the randomness is averaged out over thousands of actions, the agents with higher discount factors and more foresight prevail.\\
+As shown in Figure 1, the \textit{RPD} of each agent converges after enough time has elapsed. Another important observation is how the variation of the discount factor influences the \textit{RPD}. The higher the discount factor, the higher the \textit{RPD}. That is because a high discount factor implies taking into account the possible "future" rewards an agent can receive. Lower discount factors instead favour immediate rewards. Short term performance is predominantly based on chance, allowing lower discount factor agents the possibility of performing well. However, as the randomness is averaged out over thousands of actions, the agents with higher discount factors and more foresight prevail.\\
 
 \subsection{Experiment 2: Comparisons with dummy agents}
 % you compare the results of your agent with two dummy agents: the random agent that was already given in the starter files and another dummy agent that you define and create. You should report the results from the simulations using the topologies given in the starter files and optionally, additional topologies that you create

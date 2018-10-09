@@ -19,7 +19,6 @@ public class StateActionTable {
 	private static final double COST_PER_KM = 5;
 
 	private List<City> cityList;
-	private List<City> futureCities;
 	private int numCities;
 	private int numActions;
 	private ArrayList<ArrayList<ArrayList<Double>>> T;
@@ -29,7 +28,6 @@ public class StateActionTable {
 
 	public StateActionTable(Topology topology, TaskDistribution td, Double gamma) {
 		this.cityList = topology.cities();
-		this.futureCities = new ArrayList<City>();
 		this.numCities = this.cityList.size();
 		this.numActions = this.numCities + 1;
 		this.gamma = gamma;
@@ -226,8 +224,9 @@ public class StateActionTable {
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
 					double error = 0.001;
-					//LOOK HERE YOU DUMMY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-					while (Collections.max(Q.get(state))==0) {
+					// LOOK HERE YOU
+					// DUMMY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					while (Collections.max(Q.get(state)) == 0) {
 						double max = Collections.max(Q.get(state));
 						double min = Collections.min(Q.get(state));
 						int index = Q.get(state).indexOf(max);
@@ -253,12 +252,7 @@ public class StateActionTable {
 
 	public Action getAction(City fromCity, Task availableTask) {
 		Action action = null;
-		if (!this.futureCities.isEmpty()) {
-			action = new Move(this.futureCities.get(0));
-			this.futureCities.remove(0);
-		} else {
-			action = this.getBestAction(fromCity, availableTask);
-		}
+		action = this.getBestAction(fromCity, availableTask);
 		return action;
 	}
 
@@ -285,13 +279,13 @@ public class StateActionTable {
 													// and go elsewhere
 			City toCity = this.cityList.get(this.best.get(state));
 
-			this.futureCities = fromCity.pathTo(toCity);
-			action = new Move(this.futureCities.get(0));
-			this.futureCities.remove(0);
-
-		} else { // Pick up the task and deliver the package
+			List<City> futureCities = fromCity.pathTo(toCity);
+			action = new Move(futureCities.get(0));
+		} 
+		else {
 			action = new Delivery(availableTask);
 		}
+
 		return action;
 	}
 

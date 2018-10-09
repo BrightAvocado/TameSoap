@@ -92,7 +92,7 @@ As shown in Figure 1, the \textit{RPD} of each agent converges after enough time
 \end{wrapfigure}
 \subsubsection{Setting}
 % you describe how you perform the experiment and you describe the dummy agent you created (you also need to specify the configuration used for the experiment)
-The second experiment investigates the performance difference between RLA trained agents and dummy agents. Dummy agents were simulated using the code provided in \texttt{ReactiveTemplate.java}. We used the two dummy agents specified in \texttt{agents.xml}: \texttt{reactive-random-85}, and \texttt{reactive-random-50}. We compared these dummy agents to an RLA trained agent using a discount factor of 0.99, specified by \texttt{reactive-rla-99}.\\
+The second experiment investigates the performance difference between RLA trained agents and dummy agents. Dummy agents were simulated using the template code provided. We used the two dummy agents specified in \texttt{agents.xml}: \texttt{reactive-random}, and \texttt{reactive-random-50}. The dummy agents had a 85\% and 50\% probability of accepting an available task respectively. We compared these dummy agents to an RLA trained agent using a discount factor of 0.99, specified by \texttt{reactive-rla-99}.\\
 
 We ran each simulation for the four different topologies provided (the Netherlands, England, France and Switzerland).\\
 

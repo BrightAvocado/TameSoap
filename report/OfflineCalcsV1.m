@@ -1,6 +1,6 @@
 %% Offline Calculations for the Optimal Reward Strategy
 %% Setup
-clc;
+%clc;
 load('p-r-d-Tables.mat');
 p; %table of probabilities that each city will have a task to another city
 r; %table of rewards for tasks from one city to another city
@@ -9,7 +9,7 @@ d; %table of distances from one city to another city
 costPerKm = 1; %user defined cost per km of transport
 
 c=d*costPerKm; %cost matrix
-gamma = .95; %discount factor
+gamma = .1; %discount factor
 
 % notes:
 % state is defined as current city (1-9) and the destination city (1 to 10, 9+1 for no task)
@@ -118,6 +118,17 @@ while ~converged
                 Q(s,a) = P(s,a) + gamma*discounted_future; %update value               
             end
             [V_temp(s),Best(s)]=max(Q(s,:)); %keep the best action and value of best action for a given state s
+           
+            %adding this
+            i = 1;
+            while current_from == Best(s)
+                Qordered = unique(Q(s,:));
+                out = Qordered(end-1);
+                V_temp(s) = out;
+                Best(s) = find(Q(s,:)==V_temp(s));
+                i = i+1; %in case of duplicate values. should only ever happen twice)
+            end
+            %ends here
             if V_temp(s) == V(s)
                 states_converged(s) = 1;
             end
@@ -125,10 +136,23 @@ while ~converged
         end
         %then repeat for all possible states, s. 
     end    
-    %check if all states have converged
-    
+    %check if all states have converged    
     
     if isequal(states_converged, ones(90,1))
         converged = 1;
     end
 end
+
+%Decompose Best for faster debugging:
+Best2 = zeros(9,10);
+for current_from=1:9
+    for current_to=1:10
+        Best2(current_from,current_to) = Best((current_from-1)*(10)+current_to);
+    end
+end
+        
+debug = p.*r;
+debug2 = sum(debug,2);        
+        
+        
+        

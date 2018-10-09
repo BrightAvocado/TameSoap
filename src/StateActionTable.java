@@ -221,6 +221,16 @@ public class StateActionTable {
 					}
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
+					
+					//adding code in here to prevent best case being current city
+					ArrayList<Double> Qordered = new ArrayList<Double>();
+					while (current_from==best.get(state))
+					{
+						Qordered.add(Q.get(state).get(action));
+						
+					}
+					//ends here
+					
 					double error = 0.001;
 					if (VTemp.get(state) - V.get(state) < error) {
 						statesConverged.set(state, true);

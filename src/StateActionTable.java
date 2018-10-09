@@ -26,7 +26,7 @@ public class StateActionTable {
 	private ArrayList<ArrayList<Double>> P = new ArrayList<ArrayList<Double>>();
 	private ArrayList<Integer> best;
 	private double gamma;// discount factor
-	
+
 	public StateActionTable(Topology topology, TaskDistribution td, Double gamma) {
 		this.cityList = topology.cities();
 		this.futureCities = new ArrayList<City>();
@@ -37,6 +37,7 @@ public class StateActionTable {
 		computeProfitMatrix(topology, td);
 		computeBest();
 
+		printBestTable();
 	}
 
 	private void computeStateTransitionProbability(TaskDistribution td) {
@@ -69,9 +70,10 @@ public class StateActionTable {
 						int future_state = future_from * valueToEncodeState + future_to;
 
 						/*
-						 * Action are encoded such that : if it's a number corresponding to a city, it
-						 * means you have a task and you need to go to that city. It its value isn't the
-						 * value of a city, then you pick up 
+						 * Action are encoded such that : if it's a number
+						 * corresponding to a city, it means you have a task and
+						 * you need to go to that city. It its value isn't the
+						 * value of a city, then you pick up
 						 */
 						for (int action = 0; action < this.numActions; action++) {
 							if ((current_to != current_from) && (future_to != future_from)
@@ -184,7 +186,8 @@ public class StateActionTable {
 			Q.add(zero_column);
 		}
 
-		// Create and initialize V, which will eventually store the best values...
+		// Create and initialize V, which will eventually store the best
+		// values...
 		ArrayList<Double> V = new ArrayList<Double>();
 		for (int i = 0; i < this.numCities * (this.numCities + 1); i++) {
 			V.add(0.0);
@@ -201,7 +204,8 @@ public class StateActionTable {
 			best.add(0);
 		}
 
-		int valueToEncodeState = this.numCities + 1;// TODO: I think this works; not sure
+		int valueToEncodeState = this.numCities + 1;// TODO: I think this works;
+													// not sure
 
 		// Start actual algorithm
 		while (!converged) {
@@ -219,11 +223,21 @@ public class StateActionTable {
 						Q.get(state).set(action, this.P.get(state).get(action) + this.gamma * discounted_future);// update
 																													// value
 					}
-					Q.get(state).set(Q.get(state).indexOf(Collections.max(Q.get(state))), Collections.min(Q.get(state))); //set no-transition value to min value so it is not selected
-					
 					VTemp.set(state, Collections.max(Q.get(state)));
 					best.set(state, Q.get(state).indexOf(VTemp.get(state)));
 					double error = 0.001;
+					//LOOK HERE YOU DUMMY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+					while (Collections.max(Q.get(state))==0) {
+						double max = Collections.max(Q.get(state));
+						double min = Collections.min(Q.get(state));
+						int index = Q.get(state).indexOf(max);
+						Q.get(state).set(index, min); // set no-transition value
+														// to min value so it is
+														// not selected
+
+						VTemp.set(state, Collections.max(Q.get(state)));
+						best.set(state, Q.get(state).indexOf(VTemp.get(state)));
+					}
 					if (VTemp.get(state) - V.get(state) < error) {
 						statesConverged.set(state, true);
 					}
@@ -236,7 +250,7 @@ public class StateActionTable {
 		}
 		this.best = best;
 	}
-	
+
 	public Action getAction(City fromCity, Task availableTask) {
 		Action action = null;
 		if (!this.futureCities.isEmpty()) {
@@ -247,35 +261,49 @@ public class StateActionTable {
 		}
 		return action;
 	}
-	
+
 	public Action getBestAction(City fromCity, Task availableTask) {
 		Action action = null;
-		
+
 		int valueToEncodeState = this.numCities + 1;
-		
-		//find the numerical values associated with each city
+
+		// find the numerical values associated with each city
 		int current_from = this.cityList.indexOf(fromCity);
 		int current_to;
-		
-		if (availableTask != null) {//If there was a task in the from city
-			 current_to = this.cityList.indexOf(availableTask.deliveryCity);
-		} else { //TODO: Simon, we do agree that if there's no task, then the "current_to" is this.numCities, right ?
+
+		if (availableTask != null) {// If there was a task in the from city
+			current_to = this.cityList.indexOf(availableTask.deliveryCity);
+		} else { // TODO: Simon, we do agree that if there's no task, then the
+					// "current_to" is this.numCities, right ?
 			current_to = this.numCities;
 		}
 
-		//Compute the state
+		// Compute the state
 		int state = current_from * valueToEncodeState + current_to;
-		
-		if (this.best.get(state) < this.numCities) {//Don't take the package and go elsewhere
+
+		if (this.best.get(state) < this.numCities) {// Don't take the package
+													// and go elsewhere
 			City toCity = this.cityList.get(this.best.get(state));
-			
+
 			this.futureCities = fromCity.pathTo(toCity);
 			action = new Move(this.futureCities.get(0));
 			this.futureCities.remove(0);
-			
-		} else { //Pick up the task and deliver the package
+
+		} else { // Pick up the task and deliver the package
 			action = new Delivery(availableTask);
 		}
 		return action;
+	}
+
+	public void printBestTable() {
+
+		for (int current_from = 0; current_from < this.numCities; current_from++) {
+
+			for (int current_to = 0; current_to < this.numCities + 1; current_to++) {
+				int state = current_from * (this.numCities + 1) + current_to;
+				System.out.print(this.best.get(state) + " ");
+			}
+			System.out.println(" ");
+		}
 	}
 }
